@@ -86,4 +86,18 @@ All tests are one-sided at 5%. Standard errors are Newey-West (4 lags weekly, 5 
 
 ## Amendments
 
-None yet.
+### 2026-11-10, thresholds from 2024 (before any test)
+
+Computed by `thresholds.py` on data fetched 2026-11-10 (sha256 of farside.html starts 2e20cd5f, cftc.json 4ac68f97, binance.json 7f3a4945). Nothing from 2025 or later was used.
+
+- H1 large inflow week: weekly ETF flow above **20,563 BTC** (80th percentile of 51 calibration weeks).
+- H2 basis-drop event: 5-day change in the 90-day annualised basis below **-2.23 percentage points** (10th percentile of 240 calibration days).
+
+Clarifications of details the plan left open, also fixed before any test:
+
+- One-sided p-value = half the two-sided HAC p-value when the coefficient has the predicted sign, else 1 minus that.
+- Block bootstraps: moving blocks, 10,000 resamples, seed 0. p = share of resampled differences with the wrong sign.
+- H3: the return is also divided by its trailing 60-day standard deviation, and both trailing windows end at t-1 so no day scales itself. This changes nothing in the Wald tests; it only puts the coefficient sums on the same scale.
+- The first calibration week (ending 2024-01-16) has 3 trading days because the ETFs launched on 11 January. It stays in.
+- The Binance daily close is 24:00 UTC, four to five hours after the US close. The H2 outcome starts the next US trading day, so this does not leak the outcome into the predictor.
+- Deribit daily candles run 08:00 to 08:00 UTC and repeat the last price after expiry. In the cross-check each contract is cut at its expiry and compared with Binance hourly spot at the same 08:00 timestamp.
