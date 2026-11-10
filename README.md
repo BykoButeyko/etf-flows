@@ -4,6 +4,8 @@ US spot bitcoin ETFs took in about $55bn net between January 2024 and November 2
 
 I wrote the hypotheses, data rules, thresholds and pass lines in [PLAN.md](PLAN.md) and committed them before I ran any test. 2024 served as calibration; January 2025 to November 2026 is the test period.
 
+The write-up with the full argument is on my site: [How much of the bitcoin ETF bid is a basis trade?](https://bykobuteyko.com/research/bitcoin-etf-basis/)
+
 ![Weekly ETF flow and weekly change in leveraged-fund CME net short](chart.png)
 
 ## Results (test period, 96 weeks, about 460 trading days)
