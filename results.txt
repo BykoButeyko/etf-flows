@@ -1,0 +1,44 @@
+Data through 2026-11-09 (flows), last COT 2026-11-03
+Thresholds (from 2024): {'h1_large_week_flow_btc': 20563.21744693249, 'h2_basis_drop_5d': -0.022307339456679086, 'n_cal_weeks': 51, 'n_cal_days': 240}
+
+=== H1: inflow weeks come with new leveraged-fund CME shorts ===
+calibration 2024: n=51 weeks, hedge ratio 0.193 (95% CI 0.110 to 0.275), one-sided p=0.0000, R2=0.219, corr=0.468
+TEST 2025-: n=96 weeks, hedge ratio 0.230 (95% CI 0.167 to 0.292), one-sided p=0.0000, R2=0.267, corr=0.517
+H1 main test: SUPPORTED (also at Bonferroni 5%/3)
+Point prediction (hedge ratio 0.2-0.5 in test): HIT (0.230)
+Large-week check (flow > 20563 BTC): 8 of 96 test weeks; mean d_short large minus other = 4693 BTC (95% CI 1237 to 7738), p=0.0046
+(descriptive) asset-manager net long change per BTC of ETF flow, test: 0.111
+
+=== H2: a narrowing basis is followed by outflows ===
+TEST n=460 days. next-5-day flow (BTC) on 5-day basis change (per 1.00 = 100 pp) and 5-day return:
+  basis coef 29713 (95% CI -194831 to 254257), one-sided p=0.3977; per -1 pp of basis: -297 BTC over 5 days
+  return coef 62202, two-sided p=0.0000
+  (without return control: basis coef 120394, one-sided p=0.1503)
+  corr(5d basis change, 5d return) in test: 0.219
+H2 main test: NOT SUPPORTED
+Event check (5d basis change < -2.23 pp): 8 of 460 test days; mean next-5d flow events minus other = 2681 BTC (95% CI -6746 to 14749), p=0.6109
+
+=== H3: flows follow price more than they lead it ===
+TEST n=465 days
+  flow(t) on past returns: Wald p=0.000832, sum of return-lag coefs 0.254, lag-1 0.214 (p=2.284e-05)
+  return(t) on past flows: Wald p=0.009202, sum of flow-lag coefs 0.080, lag-1 0.188 (p=0.00167)
+H3: BOTH DIRECTIONS (|sum| flow eq 0.254 vs return eq 0.080), not support
+  (descriptive) same-day corr(flow_z, ret_z): 0.491
+
+=== Basis proxy cross-checks ===
+Deribit vs Binance 90d basis, test: n=630, level corr 0.969, 5d-change corr 0.754, mean 5.24% vs 5.31%
+Quarterly mean annualised basis, Binance 90d vs Yahoo CME front month (rough):
+  2023-12-31  binance  10.5%  cme   5.3%
+  2024-03-31  binance  16.5%  cme  16.6%
+  2024-06-30  binance  14.0%  cme   9.8%
+  2024-09-30  binance   8.5%  cme  10.0%
+  2024-12-31  binance  12.6%  cme  17.0%
+  2025-03-31  binance   9.1%  cme   5.3%
+  2025-06-30  binance   5.5%  cme   5.8%
+  2025-09-30  binance   6.7%  cme   7.5%
+  2025-12-31  binance   5.3%  cme   5.3%
+  2026-03-31  binance   3.5%  cme   4.1%
+  2026-06-30  binance   2.1%  cme   3.6%
+  2026-09-30  binance   4.1%  cme   3.6%
+  2026-12-31  binance   5.4%  cme   0.7%
+Direction over test period agrees: True; quarterly corr 0.408

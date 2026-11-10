@@ -74,7 +74,7 @@ def binance():
     })
 
 
-def quarterly_expiries(first=date(2024, 1, 1), last=None):
+def quarterly_expiries(first=date(2023, 12, 1), last=None):
     """Last Friday of Mar/Jun/Sep/Dec (Binance and Deribit quarterly expiry)."""
     last = last or date.today() + timedelta(days=200)
     out = []

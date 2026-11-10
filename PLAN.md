@@ -101,3 +101,10 @@ Clarifications of details the plan left open, also fixed before any test:
 - The first calibration week (ending 2024-01-16) has 3 trading days because the ETFs launched on 11 January. It stays in.
 - The Binance daily close is 24:00 UTC, four to five hours after the US close. The H2 outcome starts the next US trading day, so this does not leak the outcome into the predictor.
 - Deribit daily candles run 08:00 to 08:00 UTC and repeat the last price after expiry. In the cross-check each contract is cut at its expiry and compared with Binance hourly spot at the same 08:00 timestamp.
+
+### 2026-11-10, after the first test run
+
+Two bug fixes. Neither touches a test input or a threshold; the H1-H3 numbers came out the same before and after.
+
+- Yahoo CME cross-check: the first run compared Yahoo's close (16:00 Chicago) with Binance's 24:00 UTC daily close. That gap made the CME premium noisy enough to show -1.4% for Q1 2025. Now it uses Binance hourly spot at 16:00 Chicago, and skips days within 10 days of the monthly expiry (was 7), because I don't know when Yahoo rolls to the next contract. Before the fix the direction check failed (quarterly correlation -0.69); after it, it passes (0.41). I flag this because the plan ties the reading of H2 to this check. H2 failed on its own test either way.
+- The quarterly expiry list started in January 2024, so December 2023 basis used the wrong contract. Only December 2023 changed, and no test or threshold uses it.
